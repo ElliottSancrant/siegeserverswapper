@@ -38,7 +38,7 @@ A portable Windows application to change the game server for Rainbow Six Siege a
 
 ### Package Size
 
-- **Executable**: ~50-80MB (includes Python runtime + Selenium + ChromeDriver)
+- **Executable**: ~21mb 
 - **User requirement**: Chrome browser must be installed on target machine
 
 **Note**: ChromeDriver is bundled, but Chrome browser itself must be installed separately by users.
