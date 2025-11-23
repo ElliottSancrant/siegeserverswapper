@@ -1,6 +1,6 @@
 # saunis server swapper
 
-A portable Windows application to change the game server for Rainbow Six Siege accounts.
+figured i would give composer 1 a test drive and try out vibe coding so i apologize for this abomination, but it works so!. portable Windows application to change the game server for Rainbow Six Siege accounts.
 
 ## Features
 
@@ -74,7 +74,7 @@ A portable Windows application to change the game server for Rainbow Six Siege a
 ## Requirements
 
 - Windows OS
-- Chrome browser (for Ubisoft ID lookup)
+- Chrome browser (Optional if you don't care about changing individual account; Just check the "Skip" option and it will change the server for all accounts.)
 - ChromeDriver (automatically managed by Selenium)
 
 ## Notes
