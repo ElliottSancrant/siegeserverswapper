@@ -1,0 +1,81 @@
+# Build directories
+build/
+dist/
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.spec
+*.egg-info/
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+
+# PyInstaller artifacts
+*.pkg
+*.toc
+*.pyz
+warn-*.txt
+xref-*.html
+localpycs/
+
+# Distribution/Archive files
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+
+# Test files (optional - uncomment if you don't want to track tests)
+# test_*.py
+# *_test.py
+
+# Logs
+*.log
+
+# Downloaded/analyzed web content
+statsccwebpage/
+*.html
+*.download
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.suo
+*.user
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+
+# ChromeDriver (if stored locally)
+chromedriver.exe
+chromedriver
+geckodriver.exe
+geckodriver
