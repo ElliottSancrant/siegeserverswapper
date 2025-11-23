@@ -1,6 +1,7 @@
 # saunis server swapper
 
-figured i would give composer 1 a test drive and try out vibe coding so i apologize for this abomination, but it works so! portable Windows application to change the game server for Rainbow Six Siege accounts.
+figured i would give composer 1 a test drive and try out vibe coding so i apologize for this abomination, but it works so! 
+# Portable Windows application to change the game server for Rainbow Six Siege accounts.
 
 ## Features
 
