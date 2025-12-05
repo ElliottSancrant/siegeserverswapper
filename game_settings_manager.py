@@ -10,23 +10,78 @@ import configparser
 def get_user_documents_paths():
     """
     Get potential paths to Documents folders (regular and OneDrive)
+    Searches multiple locations including custom Documents folder locations
     
     Returns:
         list: List of potential Documents paths
     """
     paths = []
-    username = os.getenv('USERNAME') or os.getenv('USER')
+    checked_paths = set()  # Avoid duplicates
     
-    if username:
-        # Regular Documents path
-        regular_path = Path(f"C:/Users/{username}/Documents")
-        if regular_path.exists():
-            paths.append(regular_path)
+    # Method 1: Use Windows shell folder (if available)
+    try:
+        import win32com.client
+        shell = win32com.client.Dispatch("WScript.Shell")
+        documents_path = shell.SpecialFolders("MyDocuments")
+        if documents_path:
+            doc_path = Path(documents_path)
+            if doc_path.exists():
+                paths.append(doc_path)
+                checked_paths.add(str(doc_path.resolve()))
+    except (ImportError, Exception):
+        pass
+    
+    # Method 2: Use os.path.expanduser (works on Windows)
+    try:
+        home = Path(os.path.expanduser("~"))
+        doc_paths = [
+            home / "Documents",
+            home / "OneDrive" / "Documents",
+        ]
+        for doc_path in doc_paths:
+            if doc_path.exists():
+                resolved = str(doc_path.resolve())
+                if resolved not in checked_paths:
+                    paths.append(doc_path)
+                    checked_paths.add(resolved)
+    except Exception:
+        pass
+    
+    # Method 3: Check USERPROFILE environment variable
+    userprofile = os.getenv('USERPROFILE')
+    if userprofile:
+        doc_paths = [
+            Path(userprofile) / "Documents",
+            Path(userprofile) / "OneDrive" / "Documents",
+        ]
+        for doc_path in doc_paths:
+            if doc_path.exists():
+                resolved = str(doc_path.resolve())
+                if resolved not in checked_paths:
+                    paths.append(doc_path)
+                    checked_paths.add(resolved)
+    
+    # Method 4: Search all drives for Documents folders
+    # Check common drive letters (C: through Z:)
+    username = os.getenv('USERNAME') or os.getenv('USER', '')
+    
+    for drive in "CDEFGHIJKLMNOPQRSTUVWXYZ":
+        potential_paths = [
+            Path(f"{drive}:/Documents"),  # Direct Documents on drive (like D:/Documents)
+        ]
         
-        # OneDrive Documents path
-        onedrive_path = Path(f"C:/Users/{username}/OneDrive/Documents")
-        if onedrive_path.exists():
-            paths.append(onedrive_path)
+        if username:
+            potential_paths.extend([
+                Path(f"{drive}:/Users/{username}/Documents"),
+                Path(f"{drive}:/Users/{username}/OneDrive/Documents"),
+            ])
+        
+        for doc_path in potential_paths:
+            if doc_path.exists():
+                resolved = str(doc_path.resolve())
+                if resolved not in checked_paths:
+                    paths.append(doc_path)
+                    checked_paths.add(resolved)
     
     return paths
 
